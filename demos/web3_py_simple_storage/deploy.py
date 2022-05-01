@@ -22,7 +22,7 @@ compiled_sol = compile_standard(
     
 )
 
-with open("compiler_code.json", "w") as file:
+with open("compiled_code.json", "w") as file:
     json.dump(compiled_sol, file)
 
 # Extracting the bytecode & abi from compiled_code.json
@@ -85,7 +85,5 @@ print("Updating contract...")
 send_store_tx = w3.eth.send_raw_transaction(signed_store_txn.rawTransaction)
 tx_receipt = w3.eth.wait_for_transaction_receipt(send_store_tx)
 print("Total gas used: ", (tx_receipt.gasUsed * tx_receipt.effectiveGasPrice) / 10 ** 18, " Ether")
-print(tx_receipt.effectiveGasPrice)
-print(tx_receipt.gasUsed)
 print("Contract updated!")
 print("Stored value: ",simple_storage.functions.retrieve().call(), " (Updated)")
